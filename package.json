@@ -1,0 +1,24 @@
+{
+  "name": "Incoming",
+  "version": "0.0.1",
+  "description": "API for money management application",
+  "main": "/libs/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mikemimik/Incoming.git"
+  },
+  "keywords": [
+    "API",
+    "node",
+    "express"
+  ],
+  "author": "Michael Perrotte",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikemimik/Incoming/issues"
+  },
+  "homepage": "https://github.com/mikemimik/Incoming"
+}
