@@ -11,9 +11,10 @@
     "url": "http://github.com/mikemimik/Incoming.git"
   },
   "keywords": [
-    "API",
+    "api",
     "node",
-    "express"
+    "express",
+    "mongodb"
   ],
   "author": "Michael Perrotte",
   "license": "MIT",
