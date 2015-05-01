@@ -20,15 +20,86 @@ epilogue.initialize({
 });
 
 // Models (Sequelize)
+var Expense = db.sequelize.import(__dirname + "/models/sequel/Expense");
+var ExpenseType = db.sequelize.import(__dirname + "/models/sequel/ExpenseType");
+var Hour = db.sequelize.import(__dirname + "/models/sequel/Hour");
+var Job = db.sequelize.import(__dirname + "/models/sequel/Job");
+var Occurance = db.sequelize.import(__dirname + "/models/sequel/Occurance");
 var Payroll = db.sequelize.import(__dirname + "/models/sequel/Payroll");
+var Wage = db.sequelize.import(__dirname + "/models/sequel/Wage");
 
-// Resource
-var payrollResource = epilogue.resource({
-  model: Payroll,
-  endpoints: [ '/payroll', '/payroll/:payrollID']
+// Models (Mongoose)
+// This is too many steps.. fuck this.
+var ExpenseSchema = require('./models/goose/Expense').ExpenseSchema;
+var ExpenseGoose = db.mongoose.model('Expense', ExpenseSchema);
+
+// Resources (Mongoose)
+app.get('/', function(req, res, next) {
+  res.send('Hello World');
 });
 
-db.sequelize.sync().then(function() {
+app.get('/goose/expense', function(req, res, next) {
+  // TODO
+  // - Query mongodb for this resourse
+  // - reply with json from database
+  ExpenseGoose.find(function(docs) {
+    console.log('docs: ', docs);
+    res.send('WOAH YOU MADE IT BRO');
+  });
+});
+
+// Resources (Sequelize)
+var expenseResource = epilogue.resource({
+  model: Expense,
+  endpoints: [ '/sequel/Expense', '/sequel/Expense/:expenseID']
+});
+
+var expenseTypeResource = epilogue.resource({
+  model: ExpenseType,
+  endpoints: [ '/sequel/ExpenseType', '/sequel/ExpenseType/:expenseTypeID']
+});
+
+var hourResource = epilogue.resource({
+  model: Hour,
+  endpoints: [ '/sequel/Hour', '/sequel/Hour/:payrollID']
+});
+
+var payrollResource = epilogue.resource({
+  model: Payroll,
+  endpoints: [ '/sequel/Payroll', '/sequel/Payroll/:payrollID']
+});
+
+db.sequelize.sync({ force: true }).then(function() {
+  
+  // Populate the mysql database with some test data
+  Expense.bulkCreate([
+    { name: 'testing1', description: 'description of testing1', cost: 10.00 },
+    { name: 'testing2', description: 'description of testing2', cost: 20.00 },
+    { name: 'testing3', description: 'description of testing3', cost: 30.00 }
+  ]).then(function() {
+    // They were created
+    console.log('Test mysql data inserted');
+  });
+  
+  // Connect to mongodb
+  // Not sure this is the correct location for this
+  var dbconn = db.mongoose.connection;
+  dbconn.on('error', function() {
+    console.log('something fucked up..');
+  });
+  dbconn.once('open', function (callback) {
+    console.log('Connection to the db created');
+  });
+  
+  // Populate the mongo database with some test data
+  var item = new ExpenseGoose({
+    name: 'testing1',
+    description: 'description of testing1',
+    cost: 10.00
+  });
+  item.save(); // this doesn't work either..
+  
+  // Start the server listening on port
   var server = app.listen(app.get('port'), function() {
     console.log('Server started, and listing');
   });

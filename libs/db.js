@@ -1,11 +1,11 @@
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var Sequelize = require('sequelize');
 var config = require('./config').database;
 
 // mongoose config
-//var hosts = config.database.hosts || [];
-//var string = 'mongodb://' + hosts.join(',') + '/' + config.database.name;
-//var source = mongoose.connect( string );
+var hosts = config.hosts || [];
+var uri = 'mongodb://' + hosts.join(',') + '/' + config.name;
+var source = mongoose.connect( uri );
 
 // Sequelize config
 var sequelize = new Sequelize(config.name, config.username, config.password, {
@@ -14,8 +14,8 @@ var sequelize = new Sequelize(config.name, config.username, config.password, {
 });
 
 module.exports = {
-//  mongoose: mongoose,
-//  source: source,
+  mongoose: mongoose,
+  source: source,
   Sequelize: Sequelize,
   sequelize: sequelize
 };

@@ -2,6 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('expense', {
     expenseID: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     name: {
@@ -13,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     cost: {
-      type: DataTypes.FLOAT
+      type: DataTypes.FLOAT,
       allowNull: false
     }
   });
