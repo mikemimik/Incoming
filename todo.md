@@ -1,6 +1,15 @@
 ## ToDo
-- Merge both model definitions into one model file
- - Not sure if this is really workable
- - How do you deal with instanciation?
-  - I don't think you can, this idea doesn't really make sense
-  - Should keep the models seperate because they are two different tools
+
+### Short Term
+- Create seeding config file
+ - One for sql db
+ - One for mongodb
+- Have the seeding run in db config
+
+### Mid Term
+- Impliment sessions
+
+### Long Term
+- Impliment authentication
+ - OAuth?
+ - Local user db?
