@@ -4,14 +4,14 @@ var express = require('express'); // NPM
 var epilogue = require('epilogue'); // NPM
 var bodyParser = require('body-parser'); // NPM
 var db = require('./libs/db');
-var config = require('./libs/config').app;
+var config = require('./libs/config');
 
 // Initialize Application
 var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.set('port', config.port);
+app.set('port', config.app.port);
 
 // Initialize epilogue
 epilogue.initialize({
@@ -35,16 +35,17 @@ var ExpenseGoose = db.mongoose.model('Expense', ExpenseSchema);
 
 // Resources (Mongoose)
 app.get('/', function(req, res, next) {
-  res.send('Hello World');
+  res.send('Hello World :: incoming app');
 });
 
 app.get('/goose/expense', function(req, res, next) {
   // TODO
   // - Query mongodb for this resourse
   // - reply with json from database
-  ExpenseGoose.find(function(docs) {
+  ExpenseGoose.find(function(error, docs) { // This find command doesn't work
     console.log('docs: ', docs);
-    res.send('WOAH YOU MADE IT BRO');
+    res.send(docs);
+    //res.send('WOAH YOU MADE IT BRO');
   });
 });
 
@@ -70,19 +71,20 @@ var payrollResource = epilogue.resource({
 });
 
 db.sequelize.sync({ force: true }).then(function() {
-  
+
   // Populate the mysql database with some test data
   Expense.bulkCreate([
-    { name: 'testing1', description: 'description of testing1', cost: 10.00 },
-    { name: 'testing2', description: 'description of testing2', cost: 20.00 },
-    { name: 'testing3', description: 'description of testing3', cost: 30.00 }
+    { name: 'testing1', description: 'description of testing1 expense', cost: 10.00 },
+    { name: 'testing2', description: 'description of testing2 expense', cost: 20.00 },
+    { name: 'testing3', description: 'description of testing3 expense', cost: 30.00 }
   ]).then(function() {
     // They were created
     console.log('Test mysql data inserted');
   });
-  
+}).then(function() {
   // Connect to mongodb
   // Not sure this is the correct location for this
+  // Not sure this is necessary
   var dbconn = db.mongoose.connection;
   dbconn.on('error', function() {
     console.log('something fucked up..');
@@ -90,15 +92,15 @@ db.sequelize.sync({ force: true }).then(function() {
   dbconn.once('open', function (callback) {
     console.log('Connection to the db created');
   });
-  
+
   // Populate the mongo database with some test data
   var item = new ExpenseGoose({
     name: 'testing1',
-    description: 'description of testing1',
+    description: 'description of testing1 expense goose',
     cost: 10.00
   });
-  item.save(); // this doesn't work either..
-  
+  item.save();
+}).then(function() {
   // Start the server listening on port
   var server = app.listen(app.get('port'), function() {
     console.log('Server started, and listing');
