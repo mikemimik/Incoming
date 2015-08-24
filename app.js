@@ -5,6 +5,7 @@ var epilogue = require('epilogue'); // NPM
 var bodyParser = require('body-parser'); // NPM
 var db = require('./libs/db');
 var config = require('./libs/config');
+var seed = require('./libs/seed');
 
 // Initialize Application
 var app = express();
@@ -70,39 +71,33 @@ var payrollResource = epilogue.resource({
   endpoints: [ '/sequel/Payroll', '/sequel/Payroll/:payrollID']
 });
 
-db.sequelize.sync({ force: true }).then(function() {
 
-  // Populate the mysql database with some test data
-  Expense.bulkCreate([
-    { name: 'testing1', description: 'description of testing1 expense', cost: 10.00 },
-    { name: 'testing2', description: 'description of testing2 expense', cost: 20.00 },
-    { name: 'testing3', description: 'description of testing3 expense', cost: 30.00 }
-  ]).then(function() {
-    // They were created
-    console.log('Test mysql data inserted');
-  });
-}).then(function() {
-  // Connect to mongodb
-  // Not sure this is the correct location for this
-  // Not sure this is necessary
-  var dbconn = db.mongoose.connection;
-  dbconn.on('error', function() {
-    console.log('something fucked up..');
-  });
-  dbconn.once('open', function (callback) {
-    console.log('Connection to the db created');
-  });
+db.sequelize.sync({ force: true })
+  .then(seed.sequel)
+  .then(function() {
+    // Connect to mongodb
+    // Not sure this is the correct location for this
+    // Not sure this is necessary
+    var dbconn = db.mongoose.connection;
+    dbconn.on('error', function() {
+      console.log('something fucked up..');
+    });
+    dbconn.once('open', function (callback) {
+      console.log('Connection to the db created');
+    });
 
-  // Populate the mongo database with some test data
-  var item = new ExpenseGoose({
-    name: 'testing1',
-    description: 'description of testing1 expense goose',
-    cost: 10.00
-  });
-  item.save();
-}).then(function() {
-  // Start the server listening on port
-  var server = app.listen(app.get('port'), function() {
-    console.log('Server started, and listing');
-  });
-});
+    // Populate the mongo database with some test data
+    var item = new ExpenseGoose({
+      name: 'testing1',
+      description: 'description of testing1 expense goose',
+      cost: 10.00
+    });
+    item.save();
+  })
+  .then(function() {
+    // Start the server listening on port
+    var server = app.listen(app.get('port'), function() {
+      console.log('Server started, and listing');
+    });
+  }
+);
