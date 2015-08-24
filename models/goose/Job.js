@@ -5,6 +5,6 @@ var ObjectId = mongoose.SchemaTypes.ObjectId;
 var JobSchema = new Schema({
   jobName: String,
   description: String,
-  wages: [ObjectId]
+  wages: [ObjectId],
   payroll: ObjectId
 });
