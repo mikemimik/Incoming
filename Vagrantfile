@@ -39,11 +39,11 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder "../Incoming", "/app_incoming"
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "vagrant_nodebox"
+    vb.name = "v_incoming"
     vb.gui = false
     vb.customize [
       "modifyvm", :id, 
-      "--cpuexecutioncap", "50"
+      "--cpuexecutioncap", "75"
     ]
     vb.memory = "512"
   end
