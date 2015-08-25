@@ -1,15 +1,14 @@
 /// <reference path="typings/node/node.d.ts"/>
 
-var express = require('express'); // NPM
-var epilogue = require('epilogue'); // NPM
-var bodyParser = require('body-parser'); // NPM
-var db = require('./libs/db');
-var config = require('./libs/config');
-var seed = require('./libs/seed');
+var express = require('express');         // NPM
+var epilogue = require('epilogue');       // NPM
+var bodyParser = require('body-parser');  // NPM
+var db = require('./libs/db');            // CORE
+var config = require('./libs/config');    // CORE
+var seed = require('./libs/seed');        // CORE
 
 // Initialize Application
 var app = express();
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('port', config.app.port);

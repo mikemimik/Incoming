@@ -15,15 +15,6 @@ API for money management app
  - sequelize will be used as ORM
  - epilogue will be use as RESTful API framework
 
-###TODO
-- include mongoose 
- - create mongoose models for mongodb
-- include mongodb config
-- find/include REST util
-- include express
-
-- include all the associations in each mongo model
-
 ####Associations
 
 Job -> (hasMany) Wages
@@ -41,4 +32,4 @@ Hour -> (hasOne) Job
 Hour -> (hasOne) Wage
 
 ExpenseType -> (hasMany) Expense
-Occurance -> 
+Occurance ->
