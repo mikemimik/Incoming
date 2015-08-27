@@ -1,10 +1,8 @@
 ## ToDo
 
 ### Short Term
-- Create seeding config file
- - One for sql db (IN PROGRESS)
- - One for mongodb
-- Have the seeding run in db config
+- Comment the hell out of all the code
+ - Use airbnb style guide
 - Finish mongoose modules (they don't export?)
  - Associations?
 
