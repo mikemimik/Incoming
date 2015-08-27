@@ -65,6 +65,11 @@ var hourResource = epilogue.resource({
   endpoints: [ '/sequel/Hour', '/sequel/Hour/:payrollID']
 });
 
+var jobResource = epilogue.resource({
+  model: Job,
+  endpoints: [ '/sequel/Job', '/sequel/Job/:jobID' ]
+});
+
 var payrollResource = epilogue.resource({
   model: Payroll,
   endpoints: [ '/sequel/Payroll', '/sequel/Payroll/:payrollID']
@@ -73,26 +78,7 @@ var payrollResource = epilogue.resource({
 
 db.sequelize.sync({ force: true })
   .then(seed.sequel)
-  .then(function() {
-    // Connect to mongodb
-    // Not sure this is the correct location for this
-    // Not sure this is necessary
-    var dbconn = db.mongoose.connection;
-    dbconn.on('error', function() {
-      console.log('something fucked up..');
-    });
-    dbconn.once('open', function (callback) {
-      console.log('Connection to the db created');
-    });
-
-    // Populate the mongo database with some test data
-    var item = new ExpenseGoose({
-      name: 'testing1',
-      description: 'description of testing1 expense goose',
-      cost: 10.00
-    });
-    item.save();
-  })
+  .then(seed.mongodb)
   .then(function() {
     // Start the server listening on port
     var server = app.listen(app.get('port'), function() {
