@@ -42,8 +42,7 @@ Vagrant.configure(2) do |config|
     vb.name = "v_incoming"
     vb.gui = false
     vb.customize [
-      "modifyvm", :id, 
-      "--cpuexecutioncap", "75"
+      "modifyvm", :id, "--cpuexecutioncap", "75"
     ]
     vb.memory = "512"
   end
