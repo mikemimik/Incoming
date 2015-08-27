@@ -6,11 +6,18 @@ module.exports = {
   },
   database: {
     name: process.env.INCOMING_DB_NAME || 'incoming',
-    dialect: 'mysql',
-    hosts: ['localhost'],
-    host: 'localhost',
     username: process.env.INCOMING_DB_USERNAME || 'incomingUser',
-    password: process.env.INCOMING_DB_PASSWORD || 'incomingpass'
+    password: process.env.INCOMING_DB_PASSWORD || 'incomingpass',
+    dialect: {
+      sequel: {
+        name: 'mysql',
+        host: 'localhost'
+      },
+      nosql: {
+        name: 'mongodb',
+        host: ['localhost']
+      }
+    }
   },
   sessions: {
     key: 'put yourself a fancy little key here'
