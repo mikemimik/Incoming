@@ -34,7 +34,7 @@ class othertools {
 
 class nodejs {
   exec { "git_clone_n":
-    command => "git clone https://github.com/visionmedia/n.git /home/vagrant/n",
+    command => "git clone https://github.com/tj/n.git /home/vagrant/n",
     path => ["/bin", "/usr/bin"],
     require => [Exec["aptGetUpdate"], Package["git"], Package["curl"], Package["g++"]]
   }
@@ -48,7 +48,7 @@ class nodejs {
 
   exec { "install_node":
     command => "n stable",
-    path => ["/bin", "/usr/bin", "/usr/local/bin"],  
+    path => ["/bin", "/usr/bin", "/usr/local/bin"],
     require => [Exec["git_clone_n"], Exec["install_n"]]
   }
 }
