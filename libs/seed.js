@@ -8,7 +8,7 @@ var models = {};
 // Variable instatiations
 modelPath.root = path.join(__dirname, '..', '/models');
 
-/* Summary
+/** Summary
  *
  * Read root model directory
  * Create model_path_object
@@ -42,7 +42,7 @@ fs.readdirSync(modelPath.root).forEach(function (file) {
 // });
 
 // Functions for seeding test data
-module.exports ={
+module.exports = {
   mongodb: function() {
     var item = new models.goose.Expense({
       name: 'testing thing',
