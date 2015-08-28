@@ -2,9 +2,10 @@
   "name": "Incoming",
   "version": "0.0.1",
   "description": "API for money management application",
-  "main": "/libs/app.js",
+  "main": "/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint app.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,10 @@
     "mongoose": "^4.0.2",
     "mysql": "^2.6.2",
     "sequelize": "^3.5.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.0",
+    "eslint": "^1.2.1",
+    "eslint-config-airbnb": "0.0.8"
   }
 }
