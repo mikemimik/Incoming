@@ -53,9 +53,21 @@ module.exports = {
   },
   sequel: function() {
     models.sequel.Expense.bulkCreate([
-      { name: 'A - Test Expense', description: 'description of testing1 expense', cost: 10.00 },
-      { name: 'B - Test Expense', description: 'description of testing2 expense', cost: 20.00 },
-      { name: 'C - Test Expense', description: 'description of testing3 expense', cost: 30.00 }
+      {
+        name: 'A - Test Expense',
+        description: 'description of testing1 expense',
+        cost: 10.00
+      },
+      {
+        name: 'B - Test Expense',
+        description: 'description of testing2 expense',
+        cost: 20.00
+      },
+      {
+        name: 'C - Test Expense',
+        description: 'description of testing3 expense',
+        cost: 30.00
+      }
     ]);
     models.sequel.ExpenseType.bulkCreate([
       { name: 'A - Expense Type 1' },
@@ -63,4 +75,4 @@ module.exports = {
       { name: 'C - Expense Type 3' }
     ]);
   }
-}
+};
