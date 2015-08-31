@@ -1,45 +1,60 @@
-var fs = require('fs');     // NODE
-var path = require('path'); // NODE
+var fs = require('fs');       // NODE
+var path = require('path');   // NODE
+var util = require('./util'); // CORE
 
 // Variable definitions
-var modelPath = {};
+var model_path = {};
 var models = {};
 
 // Variable instatiations
-modelPath.root = path.join(__dirname, '..', '/models');
+model_path.root = path.join(__dirname, '..', '/models');
 
 /** Summary
  *
  * Read root model directory
  * Create model_path_object
  */
-fs.readdirSync(modelPath.root).forEach(function (file) {
-  // If item is directory, add path to modelPath object
-  if (file.split('.').length === 1) {
-    modelPath[file] = path.join(modelPath.root, file);
-    models[file] = require(modelPath[file]);
-  }
+
+// read model root directory
+fs.readdir(model_path.root, function(err, files) {
+
+  // for each item found by directory read, perform an action
+  files.forEach(function(file) {
+
+    // cur_path is the path of the item being processed
+    var cur_path = path.join(model_path.root, file);
+
+    // check to see if current item is a hidden file
+    if (!util.isUnixHiddenPath(cur_path)) {
+
+      // get stats about the current item
+      fs.stat(cur_path, function(err, stats) {
+        if (err) throw err;
+
+        // check if current item is a directory
+        if(stats.isDirectory()) {
+
+          // add directory path to object holding model paths
+          model_path[file] = cur_path;
+
+          // require the directory (index.js, will be called)
+          models[file] = require(model_path[file]);
+        } else {
+          // TODO: What to do if there are models in the root directory
+        }
+      });
+    }
+  });
+/**
+ * NOTES:
+ * check if it's a directory
+ * is: add to model_path (why?)
+ * is: models[file] require(model_path[file])
+ * not: means models in root directory
+ * not: add them to a models object
+ * not: instanciate them somehow..
+ */
 });
-
-// Read through /models/goose directory
-// Add each model to the variable models
-// This allows access to all the models for seeding
-
-// // Get mongoose models
-// fs.readdirSync(modelPath.goose).forEach(function (file) {
-//   var splitFile = file.split('.');
-//   if (splitFile[splitFile.length-1] === 'js') {
-//     models.goose[splitFile[0]] = require(path.join(modelPath.goose, file))[splitFile[0]];
-//   }
-// });
-
-// // Get sequel models
-// fs.readdirSync(modelPath.sequel).forEach(function (file) {
-//   var splitFile = file.split('.');
-//   if (splitFile[splitFile.length-1] === 'js') {
-//     models.sequel[splitFile[0]] = require(path.join(modelPath.sequel, file));
-//   }
-// });
 
 // Functions for seeding test data
 module.exports = {
