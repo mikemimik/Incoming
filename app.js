@@ -18,6 +18,9 @@ epilogue.initialize({
 });
 
 // Models (Sequelize)
+
+// TODO: run method to import all of these into a model object
+// TODO: put that method in util.js
 var Expense = db.sequelize.import(__dirname + '/models/sequel/Expense');
 var ExpenseType = db.sequelize.import(__dirname + '/models/sequel/ExpenseType');
 var Hour = db.sequelize.import(__dirname + '/models/sequel/Hour');
@@ -27,28 +30,34 @@ var Payroll = db.sequelize.import(__dirname + '/models/sequel/Payroll');
 var Wage = db.sequelize.import(__dirname + '/models/sequel/Wage');
 
 // Models (Mongoose)
-// This is too many steps.. fuck this.
+
+// TODO: run method to import all of these into a model object
+// TODO: put that method in util.js
 var ExpenseSchema = require('./models/goose/Expense').ExpenseSchema;
 var ExpenseGoose = db.mongoose.model('Expense', ExpenseSchema);
 
 // Resources (Mongoose)
+
+// TODO: mongoose resources should be in a routes folder
 app.get('/', function(req, res, next) {
   res.send('Hello World :: incoming app');
 });
 
 app.get('/goose/expense', function(req, res, next) {
-  // TODO
+  // TODO:
   // - Query mongodb for this resourse
   // - reply with json from database
   ExpenseGoose.find(function(error, docs) {
     // TESTING
     // console.log('docs: ', docs);
     res.send(docs);
-    // res.send('WOAH YOU MADE IT BRO');
   });
 });
 
 // Resources (Sequelize)
+
+// TODO: Need to find a way to require these resources instead of
+// hanging variables (resource file, and require it?)
 var expenseResource = epilogue.resource({
   model: Expense,
   endpoints: [ '/sequel/Expense', '/sequel/Expense/:expenseID']
@@ -89,7 +98,7 @@ db.sequelize.sync({ force: true })
   .then(seed.mongodb)
   .then(function() {
     // Start the server listening on port
-    var server = app.listen(app.get('port'), function() {
+    app.listen(app.get('port'), function() {
       console.log('Server started, and listing');
     });
   }
