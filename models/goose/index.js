@@ -1,11 +1,11 @@
-var fs = require('fs');
-var path = require('path');
-var database = require('../../libs/db').mongoose
 /* Summary
  *
  * Create an object that will have each model as a key
  * and it's initialized mongoose self as the value.
  */
+var fs = require('fs');
+var path = require('path');
+var database = require('../../libs/db').mongoose;
 
 var models = {};
 
