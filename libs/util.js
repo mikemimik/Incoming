@@ -3,22 +3,11 @@ var path = require('path');
 
 module.exports = {
   /**
-   * getAllModels() returns an object containing
-   * key value pairs which are the model set with
-   * the corresponding models
-   *
-   * @return { key: value [, ... ] }
-   */
-  getAllModels: function () {
-    var modelPath = {};
-    var models = {};
-    modelPath.root = path.join(__dirname, '..', '/models');
-    fs.readdirSync(modelPath.root).forEach(function (file) {
-      if (file.split('.').length === 1) {
-        modelPath[file] = path.join(modelPath.root, file);
-        models[file] = require(modelPath[file]);
-      }
-    });
-    return models;
+   * Checks whether a path starts with or contains a hidden file or a folder.
+   * @param {string} source - The path of the file that needs to be validated.
+   * returns {boolean} - `true` if the source is blacklisted and otherwise `false`.
+ */
+  isUnixHiddenPath: function (path) {
+    return (/(^|\/)\.[^\/\.]/g).test(path);
   }
 };
