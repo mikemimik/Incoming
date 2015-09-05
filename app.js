@@ -21,6 +21,10 @@ epilogue.initialize({
 
 // TODO: run method to import all of these into a model object
 // TODO: put that method in util.js
+// WIP:
+// var models = {};
+// models.sequel = require('./models/sequel');
+
 var Expense = db.sequelize.import(__dirname + '/models/sequel/Expense');
 var ExpenseType = db.sequelize.import(__dirname + '/models/sequel/ExpenseType');
 var Hour = db.sequelize.import(__dirname + '/models/sequel/Hour');
