@@ -10,7 +10,7 @@ var ExpenseSchema = new Schema({
 
 var Expense = mongoose.model('Expense', ExpenseSchema);
 
-// Export the model to anything requiring it
+// Export the model and schema to anything requiring it
 module.exports = {
   Expense: Expense,
   ExpenseSchema: ExpenseSchema

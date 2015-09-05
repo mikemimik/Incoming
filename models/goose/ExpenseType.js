@@ -7,7 +7,8 @@ var ExpenseTypeSchema = new Schema({
 
 var ExpenseType = mongoose.model('ExpenseType', ExpenseTypeSchema);
 
-// Export the model to anything requiring it
+// Export the model and schema to anything requiring it
 module.exports = {
-  ExpenseType: ExpenseType
+  ExpenseType: ExpenseType,
+  ExpenseTypeSchema: ExpenseTypeSchema
 };

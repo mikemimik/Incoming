@@ -8,3 +8,11 @@ var JobSchema = new Schema({
   wages: [ObjectId],
   payroll: ObjectId
 });
+
+var Job = mongoose.model('Job', JobSchema);
+
+// Export the model and schema to anything requiring it
+module.exports = {
+  Job: Job,
+  JobSchema: JobSchema
+};

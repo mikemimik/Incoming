@@ -6,3 +6,11 @@ var PayrollSchema = new Schema({
   endDate: Date,
   payDate: Date
 });
+
+var Payroll = mongoose.model('Payroll', PayrollSchema);
+
+// Export the model and schema to anything requiring it
+module.exports = {
+  Payroll: Payroll,
+  PayrollSchema: PayrollSchema
+};
