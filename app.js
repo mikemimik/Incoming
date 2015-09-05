@@ -60,17 +60,17 @@ app.get('/goose/expense', function(req, res, next) {
 // hanging variables (resource file, and require it?)
 var expenseResource = epilogue.resource({
   model: Expense,
-  endpoints: [ '/sequel/Expense', '/sequel/Expense/:expenseID']
+  endpoints: [ '/sequel/Expense', '/sequel/Expense/:expenseID' ]
 });
 
 var expenseTypeResource = epilogue.resource({
   model: ExpenseType,
-  endpoints: [ '/sequel/ExpenseType', '/sequel/ExpenseType/:expenseTypeID']
+  endpoints: [ '/sequel/ExpenseType', '/sequel/ExpenseType/:expenseTypeID' ]
 });
 
 var hourResource = epilogue.resource({
   model: Hour,
-  endpoints: [ '/sequel/Hour', '/sequel/Hour/:payrollID']
+  endpoints: [ '/sequel/Hour', '/sequel/Hour/:payrollID' ]
 });
 
 var jobResource = epilogue.resource({
@@ -85,7 +85,7 @@ var occuranceResource = epilogue.resource({
 
 var payrollResource = epilogue.resource({
   model: Payroll,
-  endpoints: [ '/sequel/Payroll', '/sequel/Payroll/:payrollID']
+  endpoints: [ '/sequel/Payroll', '/sequel/Payroll/:payrollID' ]
 });
 
 var wageResourced = epilogue.resource({
