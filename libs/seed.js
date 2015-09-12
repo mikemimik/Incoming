@@ -27,7 +27,7 @@ fs.readdir(model_path.root, function(err, files) {
     // check to see if current item is a hidden file
     if (!util.isUnixHiddenPath(cur_path)) {
 
-      // get stats about the current item
+      // get stats about the current item (file or directory?)
       fs.stat(cur_path, function(err, stats) {
         if (err) throw err;
 
@@ -67,6 +67,16 @@ module.exports = {
     item.save();
   },
   sequel: function() {
+    models.sequel.Job.bulkCreate([
+      {
+        jobName: 'A - Job',
+        description: 'Description of Job A'
+      },
+      {
+        jobName: 'B - Job',
+        description: 'Description of Job B'
+      }
+    ]);
     models.sequel.Expense.bulkCreate([
       {
         name: 'A - Test Expense',
