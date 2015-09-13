@@ -1,3 +1,9 @@
+/**
+ * Incoming.js
+ *
+ * This file is unused. It will be the source file
+ * for this project and will be implimentable.
+ */
 var express = require('express'); // NPM
 var epilogue = require('epilogue'); // NPM
 var bodyParser = require('body-parser'); // NPM
