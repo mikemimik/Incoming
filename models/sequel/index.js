@@ -17,4 +17,6 @@ fs.readdirSync(__dirname).forEach(function (file) {
   }
 });
 
+// TODO: add associations
+
 module.exports = models;

@@ -2,6 +2,7 @@ module.exports = function(sequelize, DataTypes) {
   return sequelize.define('wage', {
     wageID: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true
     },
     wageName: {
