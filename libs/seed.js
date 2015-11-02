@@ -59,9 +59,17 @@ fs.readdir(model_path.root, function(err, files) {
 // Functions for seeding test data
 module.exports = {
   mongodb: function() {
+    // TODO: create seed json file each thing to be seeded
+    // TODO: read seed json file and seed db
     var item = new models.goose.Expense({
-      name: 'testing thing',
-      description: 'fuck eh, mate',
+      name: 'A - Test Expense (mongodb)',
+      description: 'description of testing expense A',
+      cost: 99.99
+    });
+    item.save();
+    item = new models.goose.Expense({
+      name: 'B - Test Expense (mongodb)',
+      description: 'description of testing expense B',
       cost: 99.99
     });
     item.save();
