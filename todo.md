@@ -12,7 +12,10 @@
 - Associations?
 
 ### Mid Term
-- Impliment REST for mongoose
+- remove vagrant from this project
+  - file are too bulky
+  - use default 'development' vagrant repo
+- Impliment REST for mongoose [in progress]
 - Impliment sessions
 
 ### Long Term
