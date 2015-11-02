@@ -11,6 +11,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('port', config.app.port);
 
+// Require routes
+var routes = require('./routes');
+
+// Set Mongoose API endpoints
+app.use('/goose/expense', routes.expense);
+
+// TODO: create router file for each mongodb endpoint
+// app.use('/goose/expenseType', routes.expenseType);
+// app.use('/goose/hour', routes.hour);
+// app.use('/goose/job', routes.job);
+// app.use('/goose/occurance', routes.occurance);
+// app.use('/goose/payroll', routes.payroll);
+// app.use('/goose/wage', routes.wage);
+
 // Initialize epilogue
 epilogue.initialize({
   app: app,
@@ -37,6 +51,7 @@ var Wage = db.sequelize.import(__dirname + '/models/sequel/Wage');
 
 // TODO: run method to import all of these into a model object
 // TODO: put that method in util.js
+// INFO: not needed here, inclused in each route
 var ExpenseSchema = require('./models/goose/Expense').ExpenseSchema;
 var ExpenseGoose = db.mongoose.model('Expense', ExpenseSchema);
 
@@ -45,17 +60,6 @@ var ExpenseGoose = db.mongoose.model('Expense', ExpenseSchema);
 // TODO: mongoose resources should be in a routes folder
 app.get('/', function(req, res, next) {
   res.send('Hello World :: incoming app');
-});
-
-app.get('/goose/expense', function(req, res, next) {
-  // TODO:
-  // - Query mongodb for this resourse
-  // - reply with json from database
-  ExpenseGoose.find(function(error, docs) {
-    // TESTING
-    // console.log('docs: ', docs);
-    res.send(docs);
-  });
 });
 
 // Resources (Sequelize)
