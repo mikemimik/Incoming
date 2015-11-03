@@ -15,6 +15,17 @@ API for money management app
  - sequelize will be used as ORM
  - epilogue will be use as RESTful API framework
 
+### Getting started
+#### requirements
+- nodejs
+- mysql
+- mongodb
+
+#### setup
+- setup libs/config file
+
+
+### Info
 ####Associations
 
 Job -> (hasMany) Wages
