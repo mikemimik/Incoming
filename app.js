@@ -101,8 +101,9 @@ var wageResourced = epilogue.resource({
   endpoints: [ '/sequel/Wage', '/sequel/Wage/wageID' ]
 });
 
-db.sequelize.sync({ force: true })
-  .then(seed.sequel)
+db.sequelize
+  .sync({ force: true })
+  .then(seed.sequel.init)
   .then(seed.mongodb)
   .then(function() {
     // Start the server listening on port
