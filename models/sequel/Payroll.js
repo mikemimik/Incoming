@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('payroll', {
-    payrollID: {
+    payrollId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true

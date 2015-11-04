@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('occurance', {
-    occuranceID: {
+    occuranceId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true

@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('job', {
-    jobID: {
+    jobId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
