@@ -2,6 +2,7 @@ var fs = require('fs');       // NODE
 var path = require('path');   // NODE
 var util = require('./util'); // CORE
 var async = require('async'); // NPM
+var seedfns = require('./seed-fns');
 
 // Variable definitions
 var model_path = {};
@@ -89,87 +90,28 @@ var seed = {
     }
   },
   sequel: {
-    createModels: function(createModels_cb) {
+    createModels: function(callback) {
       console.log('seed', 'sequel', 'createModels', 'entry_point');
       async.parallel([
-        function(callback) {
-          console.log('createModels', 'parallel', 'JobCreate', 'start');
+        seedfns.job.create,
+        seedfns.expense.create,
+        seedfns.expenseType.create
+      ], function(err, result) {
+        console.log('seed', 'sequel', 'createModels', 'finish');
+        if (err) { throw err; }
 
-          // INFO: will this need to bind?
-          models.sequel.Job.bulkCreate([
-            {
-              jobName: 'A - Job',
-              description: 'Description of Job A'
-            },
-            {
-              jobName: 'B - Job',
-              description: 'Description of Job B'
-            }
-          ]).then(function(err, result) {
-            if (err) {
-              throw err;
-            } else {
-              console.log('createModels', 'parallel', 'JobCreate', 'finish');
+        var allCreatedModels = { done: 'it worked' };
+        console.log('result', result);
 
-              // INFO: is this the correct callback?
-              callback(null);
-            }
-          });
-        },
-        function(callback) {
-          console.log('createModels', 'parallel', 'ExpenseCreate', 'start');
-
-          // INFO: will this need to bind?
-          models.sequel.Expense.bulkCreate([
-            {
-              name: 'A - Test Expense',
-              description: 'description of testing1 expense',
-              cost: 10.00
-            },
-            {
-              name: 'B - Test Expense',
-              description: 'description of testing2 expense',
-              cost: 20.00
-            },
-            {
-              name: 'C - Test Expense',
-              description: 'description of testing3 expense',
-              cost: 30.00
-            }
-          ]).then(function(err, result) {
-            if (err) {
-              throw err;
-            } else {
-              console.log('createModels', 'parallel', 'ExpenseCreate', 'finish');
-              callback(null);
-            }
-          });
-        },
-        function(callback) {
-
-          // INFO: will this need to bind?
-          models.sequel.ExpenseType.bulkCreate([
-            { name: 'A - Expense Type 1' },
-            { name: 'B - Expense Type 2' },
-            { name: 'C - Expense Type 3' }
-          ]).then(function(err, result) {
-            if (err) {
-              throw err;
-            } else {
-              callback(null);
-            }
-          });
-        }
-      ], function(err, results) {
-        console.log('seed', 'sequel', 'createModels', 'callback', 'fire');
-        createModels_cb(null);
+        console.log('seed', 'sequel', 'createModels', 'callback');
+        callback(null, allCreatedModels);
       });
-      // End of async.parallel
     },
-    associateModels: function(associateModels_cb) {
+    associateModels: function(models, callback) {
       console.log('seed', 'sequel', 'associateModels', 'entry_point');
+      console.log('seed', 'sequel', 'associateModels', 'models', models);
       console.log('seed', 'sequel', 'associateModels', 'callback', 'fire');
-      associateModels_cb(null);
+      callback(null);
     }
   }
 };

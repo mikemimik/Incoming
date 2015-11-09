@@ -103,7 +103,7 @@ var wageResourced = epilogue.resource({
 
 db.sequelize
   .sync({ force: true })
-  .then(seed.sequel.init)
+  .then(seed.init)
   .then(seed.mongodb)
   .then(function() {
     // Start the server listening on port
